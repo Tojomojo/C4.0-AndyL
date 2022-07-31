@@ -1,0 +1,26 @@
+* {
+    background-color: lightskyblue;
+}
+.choice-container {
+    display: flex;
+    margin: .5rem;
+    font-size: 1rem;
+    border: .2rem solid cornflowerblue;
+    background-color: aquamarine;
+}
+
+.choice-container:hover {
+    cursor: pointer;
+    box-shadow: 0 0.3rem 1.2rem 0 darkred;
+}
+
+.choice-prefix {
+    padding: 1.6rem 2.0rem;
+    background-color: lightcoral;
+    color: beige;
+}
+
+.choice-text {
+    padding: 1.6rem;
+    color: black
+}
