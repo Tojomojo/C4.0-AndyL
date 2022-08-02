@@ -1,6 +1,13 @@
 * {
     background-color: lightskyblue;
 }
+
+.hud {
+    padding: 0;
+    font: bold;
+    text-decoration: underline;
+}
+
 .choice-container {
     display: flex;
     margin: .5rem;
@@ -23,4 +30,12 @@
 .choice-text {
     padding: 1.6rem;
     color: black
+}
+
+.right {
+    background-color: greenyellow;
+}
+
+.wrong {
+    background-color: red;
 }
