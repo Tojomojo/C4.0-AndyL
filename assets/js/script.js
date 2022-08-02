@@ -7,6 +7,8 @@ var acceptingAnswer = true;
 var score = 0;
 var questionCounter = 0;
 var availiableQuestions = [];
+var timerElement = document.querySelector(".timer")
+var timerCount = 60;
 
 //Main questions
 var questions = [
@@ -54,6 +56,7 @@ startGame = () => {
     score = 0;
     availiableQuestions = [...questions];
     console.log(availiableQuestions);
+    setTime();
     getNewQuestion();
 };
 
@@ -68,7 +71,7 @@ getNewQuestion = () => {
     const questionIndex = Math.floor(Math.random() * availiableQuestions.length);
         currentQuestion =  availiableQuestions[questionIndex];
         question.innerText = currentQuestion.question;
-
+    var answer = currentQuestion.answer
         choices.forEach((choice) => {
             const number = choice.dataset['number'];
             choice.innerText = currentQuestion['choice' + number];
@@ -79,16 +82,72 @@ getNewQuestion = () => {
             acceptingAnswer = true; 
         };
 
-        choices.forEach(choice => {
-            choice.addEventListener("click", e => {
-                if(!acceptingAnswer) return;
-
+        choices.forEach(choice=> {
+          
+                choice.addEventListener("click", e => {
+                    
+                console.log(e.target.dataset.number)
+                if(!acceptingAnswer) timerCount;
+                //if(e.target.dataset.number === currentQuestion)
+            
                 acceptingAnswer = false;
-                const selectedChoice = e.target;
-                const selectedAnswer = selectedChoice.dataset["number"];
-                console.log(selectedAnswer);
+                
                 getNewQuestion();
             })
         });
 
+    // Create timer function
+
+    function setTime() {
+        var timeInterval = setInterval(function() {
+            //console.log(timerCount);
+            timerCount--;
+            timerElement.textContent = timerCount + " seconds left! ";
+          
+            if(acceptingAnswer = false)
+            if(timerCount === 0) {
+                clearInterval(timeInterval);
+                gameOver();
+            };
+        }, 1000);
+    }
+
+    //Function to create game over message
+    function gameOver() {
+        timeEl.textContent = " ";
+        var gameOverMessage = document.textContent('Game Over! Try Again? ')
+    }
 startGame();
+
+// Saving High Scores on a local storage
+
+var userName = document.getElementById('username');
+var saveScoreBtn = document.getElementById('saveScoreBtn');
+var finalScore = document.getElementById('finalScore');
+var mostRecentScore = localStorage.getItem('mostRecentScore');
+var highScore = JSON.parse(localStorage.getItem('highScores')) || [];
+
+var MaxHighScore = 60;
+
+finalScore.innerText = mostRecentScore;
+
+userName.addEventListener('keyup', () => {
+    saveScoreBtn.disabled = !userName.ariaValueMax;
+
+});
+
+saveHighScore = (e) => {
+    e.preventDefault();
+
+    var score = {
+    score: mostRecentScore,
+    name: userName.ariaValueMax,
+    };
+
+    highScore.push(score);
+    highScore.sort((a,b) => b.score - a.score);
+    highScore.splices(5);
+
+    localStorage.setItem('highScores', JSON.stringify(highScore));
+    window.location.assign('/')
+};
